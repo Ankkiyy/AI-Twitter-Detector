@@ -7,3 +7,5 @@ frontend/.env.test.local
 frontend/.env.production.local
 frontend/.cache
 frontend/.eslintcache
+
+ai-test/ai_env
