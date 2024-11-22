@@ -54,6 +54,10 @@ const LoginSignup: React.FC = () => {
           });
 
           if (response.ok) {
+            let data = await response.json();
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            
             setSuccessMessage("Login successful! Redirecting...");
             setTimeout(() => navigate('/ai'), 1500);
           } else {
