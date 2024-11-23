@@ -71,7 +71,8 @@ const AIPage: React.FC = () => {
           <label htmlFor="prediction" className="block text-sm font-medium text-gray-700">Prediction</label>
           <span id="prediction"
             className="mt-1 block p-3 w-full border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm">
-            {prediction + ' ' + prediction == "Hostile" ? "(" + subPrediction + ")" : "" }
+            {prediction + ' '}
+            {prediction == "Hostile" ? "(" + subPrediction + ")" : "" }
             </span>
         </div>
 
