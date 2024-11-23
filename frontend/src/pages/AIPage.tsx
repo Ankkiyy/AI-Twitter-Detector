@@ -6,9 +6,11 @@ import Footer from '../components/Footer';
 const AIPage: React.FC = () => {
   const [tweet, setTweet] = React.useState<string>('');
   const [prediction, setPrediction] = React.useState<string>('');
+  const [subPrediction, setSubPrediction] = React.useState<string>('');
 
   const handleTweetChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPrediction('');
+    setSubPrediction('');
     setTweet(event.target.value);
   };
 
@@ -27,9 +29,11 @@ const AIPage: React.FC = () => {
       if (response.ok) {
         const data = await response.json();
 
-        if (data?.prediction) {
+        if (data?.prediction) 
           setPrediction(data!.prediction);
-        }
+
+        if (data?.sub_prediction)
+          setSubPrediction(data!.sub_prediction)
 
         console.log(data);
       } else {
@@ -67,10 +71,9 @@ const AIPage: React.FC = () => {
           <label htmlFor="prediction" className="block text-sm font-medium text-gray-700">Prediction</label>
           <span id="prediction"
             className="mt-1 block p-3 w-full border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm">
-            {prediction}
+            {prediction + ' ' + prediction == "Hostile" ? "(" + subPrediction + ")" : "" }
             </span>
         </div>
-
 
         <div className="flex justify-center">
           <button

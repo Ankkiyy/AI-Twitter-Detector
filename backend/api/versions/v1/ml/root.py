@@ -1,7 +1,7 @@
 from fastapi import APIRouter,HTTPException, status, Request
 from pydantic import ValidationError
 from fastapi.responses import JSONResponse
-from api.extensions.ml.test import predict_tweet
+from api.extensions.ml.test import predict_tweet, predict_sub_hostile
 router = APIRouter()
 
 @router.get("/", response_description="Api Version 1 Manager route")
@@ -33,16 +33,19 @@ async def create_user(request: Request):
 
     try:
         prediction = await predict_tweet(tweet)
+        sub_prediction = "Neutral"
 
         if prediction:
             prediction = "Hostile"
+            sub_prediction = await predict_sub_hostile(tweet)
         else:
             prediction = "Non-Hostile"
 
         return JSONResponse(
             status_code=status.HTTP_200_OK,
             content={
-                "prediction": prediction
+                "prediction": prediction,
+                "sub_prediction": sub_prediction
             }
         )
 
